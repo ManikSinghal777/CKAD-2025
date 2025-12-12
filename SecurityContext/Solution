@@ -1,0 +1,5 @@
+vim hotfix-deployment.yaml
+
+k apply -f hotfix-deployment.yaml
+k rollout status deployment/hotfix-deployment -n quetzal
+k get pods -n quetzal
