@@ -1,0 +1,52 @@
+k get deploy -n nov2025
+k edit deploy nov2025-deployment -n nov2025
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nov2025-deployment
+  name: nov2025-deployment
+  namespace: nov2025
+spec:
+  replicas: 4   # update to required replicas
+  selector:
+    matchLabels:
+      app: nov2025-deployment
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nov2025-deployment
+        func: webFrontend # add label
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: nginx
+
+k get pods -n nov2025 --show-labels
+
+vim svc.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: berry
+  namespace: nov2025
+spec:
+  type: NodePort
+  selector:
+    func: webFrontend
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+
+k apply -f svc.yaml
+k get svc -n nov2025
+k describe svc berry -n nov2025
