@@ -13,8 +13,6 @@ kind: Deployment
 metadata:
   name: hotfix-deployment
   namespace: quetzal
-  labels:
-    app: hotfix
 spec:
   replicas: 1
   selector:
@@ -29,7 +27,7 @@ spec:
         - name: hotfix-container
           image: nginx:stable
           ports:
-            - containerPort: 80
+            - containerPort: 8080
 YAML
 
 # Ensure namespace exists then apply the EXERCISE manifest (initial state, no securityContext)
