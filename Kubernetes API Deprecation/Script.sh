@@ -1,9 +1,41 @@
 #!/bin/bash
 set -e
 
-echo "➡️ Creating intentionally WRONG HPA manifest at ~/ckad-hpa.yaml (old API + deprecated field)..."
+echo "=== STEP 1: Creating working deployment 'web-app' ==="
 
-cat <<'YAML' > ~/ckad-hpa.yaml
+cat <<'DEPLOY' > ~/web-app.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: web
+        image: nginx
+        ports:
+        - containerPort: 80
+DEPLOY
+
+kubectl apply -f ~/web-app.yaml
+
+echo
+echo "Deployment created:"
+kubectl get deploy web-app -o wide
+
+
+echo
+echo "=== STEP 2: Creating WRONG HPA manifest (old API + deprecated fields) ==="
+
+cat <<'HPA' > ~/ckad-hpa.yaml
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
@@ -20,6 +52,7 @@ spec:
       resource:
         name: cpu
         targetAverageUtilization: 70
-YAML
+HPA
 
-echo "📄 Wrote the following (WRONG) manifest:"
+
+echo "Wrong HPA manifest written at ~/ckad-hpa.yaml"
