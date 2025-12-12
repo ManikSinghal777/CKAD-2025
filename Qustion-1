@@ -1,0 +1,5 @@
+Q1- A Dockerfile has been prepared at ~/home/Dockerfile 
+1. Using the preapred Dockerfile, build a docker image with the name devmaq and tag 3.0. 
+To install use the tool of your choice. docker, scopio or podman and img. 
+Please don't push the build image to a registry, run a container or otherwise consume it. 
+2. Using the tool of your choice export the built container image in OCI-format and store it at ~/human-stork/devmac-3.0.tar
