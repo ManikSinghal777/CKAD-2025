@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Prepare directory
-mkdir -p "$HOME/broker-deployment"
-MANIFEST="$HOME/broker-deployment/hotfix-deployment.yaml"
+WORKDIR="$HOME/broker-deployment"
+MANIFEST="$WORKDIR/hotfix-deployment.yaml"
+NS="quetzal"
 
-# Create Deployment manifest with NO securityContext anywhere
-cat > "$MANIFEST" <<'EOF'
+mkdir -p "$WORKDIR"
+
+cat > "$MANIFEST" <<'YAML'
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -29,28 +30,11 @@ spec:
           image: nginx:stable
           ports:
             - containerPort: 80
-EOF
+YAML
 
-echo "[OK] Created manifest: $MANIFEST"
-
-# Ensure namespace exists
-kubectl create namespace quetzal --dry-run=client -o yaml | kubectl apply -f -
-
-# Apply the Deployment
+# Ensure namespace exists then apply the EXERCISE manifest (initial state, no securityContext)
+kubectl create namespace "$NS" --dry-run=client -o yaml | kubectl apply -f -
 kubectl apply -f "$MANIFEST"
 
-echo
-echo "=== Environment ready ==="
-echo "Deployment created WITHOUT any securityContext."
-echo
-echo "You can now perform the required edits:"
-echo "  kubectl edit deployment hotfix-deployment -n quetzal"
-echo
-echo "And add under containers[0]:"
-echo "      securityContext:"
-echo "        runAsUser: 3000"
-echo "        allowPrivilegeEscalation: false"
-echo
-echo "Verify afterwards using:"
-echo "  kubectl -n quetzal get deploy hotfix-deployment -o yaml"
-echo
+echo "=== Environment created ==="
+
