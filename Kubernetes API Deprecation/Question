@@ -1,0 +1,6 @@
+Q10- A team tries to apply the hpa manifest, which was originally created on an older cluster located in ~/ckad-hpa.yaml
+
+Task:
+Identify the correct API version that should be used.
+Update the manifest to work on Kubernetes v1.32
+Verify that the HPA is created successfully.
