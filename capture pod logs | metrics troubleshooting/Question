@@ -1,0 +1,12 @@
+Q9- Task:
+Deploy the winter pod to the cluster using the provided yaml spec file at
+/opt/ckadnov2025/winter.yaml
+
+Retrieve all currently available application logs from the running pod and store them in the file
+/opt/ckadnov2025/log_Output.txt, which has already been created.
+
+It is always useful to look at the resources your applications are consuming in a cluster.
+
+Task:
+From the pods running in namespace cpu-stress, write the name only of the pod that is consuming the most CPU to file
+/opt/ckadnov2025/pod.txt, which has already been created.
