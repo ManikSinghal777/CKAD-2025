@@ -1,0 +1,27 @@
+k explain hpa  #find correct api version you can also search on docs
+
+vim ckad-hpa.yaml
+
+apiVersion: autoscaling/v2   // correct here api version
+kind: HorizontalPodAutoscaler
+metadata:
+  name: web-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: web-app
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:           // correct here latest target config using docs
+          type: Utilization
+          averageUtilization: 70
+
+k apply -f ckad-hpa.yaml
+k get hpa
+k describe hpa web-hpa
+k get deploy
