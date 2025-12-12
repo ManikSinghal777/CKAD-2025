@@ -1,0 +1,9 @@
+Q7- Task:
+Create a CronJob that in production namespace:
+Runs a busybox container executing date.
+The CronJob runs every 30 minutes.
+The CronJob must have:
+2 completions & 3 retries on failure
+Terminate if running longer than 30 seconds
+CronJob named log-cleaner and log container
+Verify execution of CronJob
