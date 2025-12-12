@@ -1,0 +1,5 @@
+Q2- Modify the existing deployment named hotfix-deployment running in namespace quetzal so that its containers.
+1. Run with user ID 3000 and
+2. Privilege escalation is forbidden 
+The broker-deployment is manifest file can be found at:
+~/broker-deployment/hotfix-deployment.yaml
