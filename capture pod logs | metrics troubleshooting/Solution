@@ -1,0 +1,6 @@
+kubectl apply -f /opt/ckadnov2025/winter.yaml
+k logs winter > /opt/ckadnov2025/log_Output.txt
+cat /opt/ckadnov2025/log_Output.txt
+
+---- 
+
