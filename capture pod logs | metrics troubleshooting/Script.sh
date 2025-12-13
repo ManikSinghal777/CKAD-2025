@@ -95,6 +95,4 @@ else
     echo "  verbs: [\"get\", \"list\", \"watch\"]"
 fi
 
-echo ""
-echo "Try this:"
-echo "  kubectl top po -n cpu-stress"
+echo "done"
