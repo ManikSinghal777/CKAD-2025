@@ -1,3 +1,5 @@
+#Task 1
+
 #!/bin/bash
 
 # Ensure directory exists
@@ -22,3 +24,37 @@ echo "" > /opt/ckadnov2025/log_Output.txt
 echo "Files created:"
 echo " - /opt/ckadnov2025/winter.yaml"
 echo " - /opt/ckadnov2025/log_Output.txt"
+
+-------
+
+#Task 2
+
+#!/bin/bash
+
+# Create the namespace
+kubectl create namespace cpu-stress
+
+# Create and apply both pods using heredoc piped into kubectl
+cat <<EOF | kubectl apply -n cpu-stress -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: stress-1
+spec:
+  containers:
+  - name: c1
+    image: busybox
+    command: ["sh", "-c", "while true; do :; done"]
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: stress-2
+spec:
+  containers:
+  - name: c1
+    image: busybox
+    command: ["sh", "-c", "while true; do usleep 50000; done"]
+EOF
+
