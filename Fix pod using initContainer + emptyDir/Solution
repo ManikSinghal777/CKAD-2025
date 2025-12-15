@@ -14,8 +14,9 @@ spec:
   initContainers:
     - name: init-script
       image: busybox
-      command: ["/bin/sh", "-c"]
-      args:
+      command: 
+        - /bin/sh 
+        - -c
         - |
           echo 'echo start app' > /app/start.sh
           chmod +x /app/start.sh
@@ -25,7 +26,7 @@ spec:
   containers:
     - name: app
       image: busybox
-      command: ["/app/start.sh"]
+      command: ["sh", "-c", "/app/start.sh && sleep 3600"]
       volumeMounts:
         - name: app-vol
           mountPath: /app
