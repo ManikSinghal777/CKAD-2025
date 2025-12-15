@@ -1,4 +1,4 @@
-In namespace `default`, the following resources exist:
+Q11-In namespace `default`, the following resources exist:
 
 - Deployment `store-deploy`
 - Service `store-svc`
