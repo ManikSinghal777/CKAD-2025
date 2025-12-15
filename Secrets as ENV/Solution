@@ -1,29 +1,41 @@
-k create secret generic db-credentials --from-literal=username=admin --from-literal=password=P@ssw0rd123
-k get secrets
-vim pod.yaml
+### Solution
 
-apiVersion: v1
-kind: Pod
-metadata:
-  name: env-secret-pod
-spec:
-  containers:
-  - name: busybox
-    image: busybox
-    command: ["sleep","3600"]
-    env:
-    - name: DB_USER
-      valueFrom:
-        secretKeyRef:
-          name: db-credentials
-          key: username
-    - name: DB_PASS
-      valueFrom:
-        secretKeyRef:
-          name: db-credentials
-          key: password
+**Step 1 – Create the Secret**
 
-k apply -f pod.yaml
-k get pods
-k describe pods
-k exec -it env-secret-pod -- env | grep DB
+```bash
+kubectl create secret generic billing-secret \
+  --from-literal=DB_USER=admin \
+  --from-literal=DB_PASS=SuperSecret123
+```
+
+**Step 2 – Patch Deployment env to use Secret**
+
+```bash
+kubectl edit deploy billing-api
+```
+
+Inside `.spec.template.spec.containers[0].env`, replace:
+
+```yaml
+- name: DB_USER
+  value: "admin"
+- name: DB_PASS
+  value: "SuperSecret123"
+```
+
+with:
+
+```yaml
+- name: DB_USER
+  valueFrom:
+    secretKeyRef:
+      name: billing-secret
+      key: DB_USER
+- name: DB_PASS
+  valueFrom:
+    secretKeyRef:
+      name: billing-secret
+      key: DB_PASS
+```
+
+Save and exit. The Deployment will roll out new Pods.
