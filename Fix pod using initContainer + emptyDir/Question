@@ -1,3 +1,4 @@
+(EXTRA)
 Q18-In namespace `default`, Pod `startup-pod` exists and fails because it tries to execute `/app/start.sh`, which does not exist.
 
 Recreate Pod `startup-pod` so that:
