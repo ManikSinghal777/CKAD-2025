@@ -1,0 +1,14 @@
+In namespace `default`, the following resources exist:
+
+- Deployment `store-deploy`
+- Service `store-svc`
+- Ingress `store-ingress` (currently misconfigured)
+
+The Ingress must:
+
+- Route HTTP requests to path `/shop`
+- Use `pathType: Prefix`
+- Forward traffic to Service `store-svc` on port `8080`
+
+Reconfigure Ingress `store-ingress` accordingly.
+Do not create a new Ingress.
