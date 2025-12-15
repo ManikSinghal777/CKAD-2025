@@ -1,0 +1,33 @@
+Q16-Scenario
+
+Given 4 existing NetworkPolicies, identify and apply the 2 that allow traffic to a pod labeled:
+
+app=db
+tier=backend
+Allowed sources:
+
+Pod with labels: app=api, tier=frontend
+Pod with labels: role=monitor
+Goal
+
+Select/create 2 policies that:
+
+Allow ingress from tier=frontend
+Allow ingress from role=monitor
+(Practice creating NP manifests based on podSelectors.)
+
+----
+
+* 4 NetworkPolicies already existed
+
+* You were **NOT allowed to edit them**
+
+* You had to:
+
+* Understand their selectors
+
+* Label the correct pods
+
+* Enable communication between **3 pods**
+
+📌 If you understand **label-based matching**, this is free points.
