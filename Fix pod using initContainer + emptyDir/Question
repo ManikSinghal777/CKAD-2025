@@ -1,0 +1,15 @@
+Q18-In namespace `default`, Pod `startup-pod` exists and fails because it tries to execute `/app/start.sh`, which does not exist.
+
+Recreate Pod `startup-pod` so that:
+
+- It uses an `emptyDir` volume mounted at `/app`.
+- An init container:
+
+  - Writes `/app/start.sh` with content `echo start app`
+  - Marks it executable
+
+- The main container:
+
+  - Runs `/app/start.sh` as its command
+
+Ensure the recreated Pod reaches `Running` state.
