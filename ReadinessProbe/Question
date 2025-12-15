@@ -1,0 +1,8 @@
+Q14-Task
+
+Add readinessProbe to nginx deployment:
+
+Type: HTTP GET
+Path: /ready
+Port: 80
+Initial delay: 5 seconds
