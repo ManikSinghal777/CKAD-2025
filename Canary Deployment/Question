@@ -15,3 +15,7 @@ Both must share selector: app=web
 * Control replicas
 
 * Service selects both
+
+---
+
+Canary - 10 replicas and 80%-20% traffic
