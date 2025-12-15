@@ -17,3 +17,5 @@ backend:
 ```
 
 Save and exit.
+
+k describe ingress store-ingress
