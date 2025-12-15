@@ -1,7 +1,15 @@
-Q3-You are tasked with deploying a pod that uses sensitive credentials stored in a kubernetes secret.
-Create a Secret named db-credentials in the default namespace with the following key-value pairs: username:admin password:P@ssw0rd123
-Create a Pod named env-secret-pod that runs a single container usinf the image busybox, and keep running (sleep 3600).
-The container should expose the Secret values as environment variables:
-   Environment variable DB_USER should use the value from username
-   Environment variable DB_PASS should use the value from password
-Verify the environment variables are correctly set inside the pod
+Q3-In namespace `default`, Deployment `billing-api` exists with hard-coded environment variables:
+
+- `DB_USER`
+- `DB_PASS`
+
+Update the configuration to:
+
+1. Create a Secret named `billing-secret` in namespace `default` containing keys:
+
+   - `DB_USER`
+   - `DB_PASS`
+
+2. Modify Deployment `billing-api` so that the container reads `DB_USER` and `DB_PASS` from this Secret using `valueFrom.secretKeyRef`.
+
+Do not change the Deployment name or namespace.
