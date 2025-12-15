@@ -4,46 +4,12 @@
 kubectl create namespace nov2025
 
 echo "[+] Creating app deployment in nov2025..."
-cat <<EOF | kubectl apply -n nov2025 -f -
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: app
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: app
-  template:
-    metadata:
-      labels:
-        app: app
-    spec:
-      containers:
-      - name: app
-        image: repo/nginx:1.12   # initial version
-EOF
+
+k create deploy app -n nov2025 --image nginx:1.12 --replicas 3
 
 echo "[+] Creating web1 deployment in nov2025..."
-cat <<EOF | kubectl apply -n nov2025 -f -
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: web1
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: web1
-  template:
-    metadata:
-      labels:
-        app: web1
-    spec:
-      containers:
-      - name: web1
-        image: repo/nginx:1.12   # initial version
-EOF
+
+k create deploy web1 -n nov2025 --image nginx:1.12 --replicas 2
 
 echo ""
 echo "Setup completed!"
