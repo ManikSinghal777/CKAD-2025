@@ -1,0 +1,17 @@
+Q13-In namespace `dev`, perform the following:
+
+1. Create a Pod named `resource-pod` with:
+
+   - Image: `nginx`
+   - CPU request: `200m`
+   - CPU limit: `500m`
+   - Memory request: `128Mi`
+   - Memory limit: `256Mi`
+
+2. Create a ResourceQuota named `dev-quota` that enforces:
+
+   - Maximum number of Pods: `10`
+   - Total CPU requests: `2`
+   - Total memory requests: `4Gi`
+
+Ensure both resources are created in namespace `dev`.
