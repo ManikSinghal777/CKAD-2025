@@ -1,0 +1,21 @@
+vim ingress.yaml
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: internal-api-ingress
+  namespace: default
+spec:
+  rules:
+    - host: internal.company.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: internal-api-svc
+                port:
+                  number: 3000
+
+k apply -f ingress.yaml
