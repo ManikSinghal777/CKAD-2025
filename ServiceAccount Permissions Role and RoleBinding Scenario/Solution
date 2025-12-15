@@ -1,2 +1,48 @@
 k get po -n meta
 k logs dev-deployment-949954f87-bb5bj -n meta
+k auth can-i list deployments --as=system:serviceaccount:meta:default -n meta
+
+k create sa dev-sa -n meta
+vim role.yaml
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: meta
+  name: deployment-reader
+rules:
+- apiGroups: ["apps"] # "" indicates the core API group
+  resources: ["deployments"]
+  verbs: ["get", "watch", "list"]
+
+k apply -f role.yaml
+k describe role deployment-reader -n meta
+
+vim rolebinding.yaml
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dev-deploy-rb
+  namespace: meta
+subjects:
+- kind: ServiceAccount
+  name: dev-sa
+  namespace: meta
+roleRef:
+  kind: Role 
+  name: deployment-reader 
+  apiGroup: rbac.authorization.k8s.io
+
+k apply -f rolebinding.yaml
+k auth can-i list deployments --as=system:serviceaccount:meta:dev-sa -n meta
+
+k get deploy dev-deployment -n meta -o yaml
+k patch deploy dev-deployment -n meta -p '{"spec":{"template":{"spec":{"serviceAccountName":"dev-sa"}}}}'
+k describe deploy dev-deployment -n meta
+
+k get po -n meta
+k logs dev-deployment-85c8664b8c-qrmq9 -n meta
+
+
+
