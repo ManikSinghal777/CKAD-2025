@@ -1,33 +1,22 @@
 Q16-Scenario
 
-Given 4 existing NetworkPolicies, identify and apply the 2 that allow traffic to a pod labeled:
+In namespace default, four NetworkPolicies already exist.
 
+You are NOT allowed to edit existing NetworkPolicies.
+
+A Pod with the following labels exists:
 app=db
 tier=backend
-Allowed sources:
+Traffic to this Pod is currently blocked.
 
-Pod with labels: app=api, tier=frontend
-Pod with labels: role=monitor
-Goal
+Configure the environment so that ingress traffic is allowed only from:
 
-Select/create 2 policies that:
+Pods with labels:
+app=api
+tier=frontend
+Pods with labels:
+role=monitor
 
-Allow ingress from tier=frontend
-Allow ingress from role=monitor
-(Practice creating NP manifests based on podSelectors.)
+You may only use labels and existing NetworkPolicies.
 
-----
-
-* 4 NetworkPolicies already existed
-
-* You were **NOT allowed to edit them**
-
-* You had to:
-
-* Understand their selectors
-
-* Label the correct pods
-
-* Enable communication between **3 pods**
-
-📌 If you understand **label-based matching**, this is free points.
+Do not modify the NetworkPolicy definitions.
