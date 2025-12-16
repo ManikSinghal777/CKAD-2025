@@ -1,0 +1,32 @@
+k get svc
+k get deploy
+k scale deploy web-stable --replicas 3
+vim deploy.yaml
+
+apiVersion: apps/v1  #copy skeleton from docs
+kind: Deployment
+metadata:
+  name: web-canary
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+      version: canary
+  template:
+    metadata:
+      labels:
+        app: web
+        version: canary
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.16
+        ports:
+        - containerPort: 80
+
+k apply -f deploy.yaml
+k get deploy
+kubectl get pods --show-labels
+kubectl get endpoints web-svc  #Expected: 4 IPs (3 stable + 1 canary)
