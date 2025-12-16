@@ -1,0 +1,31 @@
+kubectl get ep
+#Broken output (what you probably saw)
+NAME        ENDPOINTS   AGE
+my-service  <none>      5m
+
+#Check Service selector
+kubectl describe svc my-service
+
+#you see:
+selector:
+  WRONG: label
+
+#check pod labels:
+kubectl get pod --show-labels
+eg. app=frontend
+
+#Solution
+kubectl edit svc my-service
+
+selector: #correct it
+  app: frontend
+
+(Use the actual label from your Pods)
+Save and exit.
+
+kubectl get ep my-service
+#Expected:
+NAME        ENDPOINTS           AGE
+my-service  192.168.1.4:80      6m
+
+
