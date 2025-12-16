@@ -1,0 +1,14 @@
+k get netpol
+
+k describe netpol allow-frontend-to-backend
+k describe netpol allow-monitor-to-backend
+k describe netpol deny-all-backend
+k describe netpol unrelated-policy
+
+k get pods --show-labels
+
+k label pod db-pod app=db tier=backend --overwrite
+k label pod api-pod app=api tier=frontend --overwrite
+k label pod monitor-pod role=monitor --overwrite
+
+k get pods --show-labels
