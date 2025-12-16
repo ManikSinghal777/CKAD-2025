@@ -1,20 +1,8 @@
 Q17-Task
 
-Fix broken service selector.
+In namespace default, a Service exists and the corresponding Pods are running.
+However, traffic is not reaching the Pods.
 
-Given:
+Investigate and fix the Service selector so that traffic flows correctly.
 
-selector:
-  WRONG: label
-
----
-
-* Service existed
-
-* Pods existed
-
-* Traffic didn’t flow
-
-* Selector mismatch — fix it
-
-Easy if you check `kubectl get ep`.
+Do not create new Pods or Services.
