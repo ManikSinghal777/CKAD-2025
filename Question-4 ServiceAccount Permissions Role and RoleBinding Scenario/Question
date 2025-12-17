@@ -1,12 +1,4 @@
-Q4- A pod within the Deployment named dev-deployment and in namespace meta is logging errors.
-1. Look at the logs identify errors messages.
-Find errors, including User "system:serviceaccount:meta:default" cannot list resource "deployment" [...] in the namespace meta.
-2. Update the Deployment dev-deployment to resolve the errors in the log of the pod.
-The dev-deployment's manifest can be found at ~/dev-deployment.yaml
-
------
-
-In namespace `meta`, Deployment `dev-deployment` exists.
+Q4- In namespace `meta`, Deployment `dev-deployment` exists.
 Its Pods run a `kubectl` loop trying to list Deployments in the same namespace and log an authorization error.
 
 Without deleting the Deployment, perform the following:
