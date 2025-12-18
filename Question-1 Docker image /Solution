@@ -1,3 +1,4 @@
 cd home 
 podman build -t devmaq:3.0 -f Dockerfile .
-podman save —format oci-archive -o devmac-3.0.tar devmaq:3.0
+mkdir -p ~/human-stork
+podman save —format oci-archive -o devmac-3.0.tar ~/human-stork/devmaq:3.0
