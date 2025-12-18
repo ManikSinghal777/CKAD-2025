@@ -7,9 +7,7 @@ spec:
       maxSurge: 5%
       maxUnavailable: 2%
 
-k rollout restart deploy app -n nov2025
 k rollout status deploy app -n nov2025
-k rollout history deploy app -n nov2025
 k describe deploy app -n nov2025
 
 k set image deploy web1 -n nov2025 nginx=nginx:1.13
